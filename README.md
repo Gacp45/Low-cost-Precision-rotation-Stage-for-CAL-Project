@@ -25,7 +25,6 @@ This repository is structured as follows:
 -   **/CAD:** Contains all `.STL` files required for 3D printing the components, as well as the source CAD files (e.g., `.STEP`, `.f3d`) for modification.
 -   **/Software:** Contains the Python control software, including the Tkinter GUI (`display fix, pulses v2.py`) for manual control and any scripts used for automated performance testing.
 -   **/Docs:** Includes detailed assembly instructions, an electronics wiring diagram, and a full Bill of Materials (BOM).
--   **/Firmware:** Contains the firmware for the MKS SERVO57D CAN.
 -   `README.md`: This file.
 
 ## Getting Started
