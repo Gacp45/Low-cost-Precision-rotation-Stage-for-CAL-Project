@@ -53,7 +53,8 @@
 
 ## About The Project
 
-![Project Screenshot](https://raw.githubusercontent.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project/main/Images/render.png)
+![IMG_3397]!(https://github.com/user-attachments/assets/6f82c3db-b893-4982-9177-6fe2b2445166)
+
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
 
@@ -64,6 +65,7 @@ The primary motivation for this project is the high cost of commercial rotation 
 This project provides a complete, end-to-end solution, from the 3D-printable mechanical parts to the control software, enabling users to build and operate their own precision rotation stage.
 
 ### Key Features:
+
 * **Precision Rotation Stage:** Uses a geared stepper motor (MKS SERVO42D) for high-precision control.
 * **GUI Control Panel:** An intuitive interface built with Tkinter for easy operation.
 * **Real-time Feedback:** Displays the current output angle in degrees, calculated from live encoder data.
