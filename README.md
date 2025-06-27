@@ -53,7 +53,7 @@
 
 ## About The Project
 
-![IMG_3397]!(https://github.com/user-attachments/assets/6f82c3db-b893-4982-9177-6fe2b2445166)
+![IMG_3397](https://github.com/user-attachments/assets/6f82c3db-b893-4982-9177-6fe2b2445166)
 
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
