@@ -34,10 +34,10 @@ The primary motivation for this project is the high cost of commercial rotation 
 
 ### 1. Hardware Requirements
 
-- **MKS SERVO42D** installed on a nema17 with CAN bus interface.
+- **MKS SERVO42D** stepper motor with CAN bus interface.
 - **A host computer with a CAN interface.** Common options include:
   - A CAN-to-USB adapter (e.g., CANable, USBtin, PCAN-USB).
-  - A Raspberry Pi with a CAN bus HAT or CAN-to-USB adapter.
+  - A Raspberry Pi with a CAN bus HAT or CAN-to-USB Adapter.
 - **A stable Power Supply** for the servo (typically 12V to 24V DC).
 - **CAN Bus Wiring:**
   - A twisted pair of wires for `CAN_H` and `CAN_L`.
