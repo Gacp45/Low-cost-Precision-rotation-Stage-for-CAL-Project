@@ -35,7 +35,7 @@ All parts can be printed in PETG on a standard FDM 3D printer with minimal suppo
 
 ### 2. Electronics and Wiring
 
-The system uses a Raspberry Pi 4 to run the control software, connected to the MKS SERVO42D via a USB-to-CAN adapter. Please see the wiring diagram in the `/Docs` folder for specific pin connections.
+The system uses a Raspberry Pi 4 to run the control software, connected to the MKS SERVO42D via a USB-to-CAN adapter. Please see the wiring guide in the Release folder. For further guidance related to the MKS SERVO42D refer to this user manual: https://github.com/makerbase-motor/MKS-SERVO57D/blob/master/User%20Manual/MKS%20SERVO42%2657D_CAN%20User%20Manual%20V1.0.6.pdf
 
 ### 3. Software Setup
 
