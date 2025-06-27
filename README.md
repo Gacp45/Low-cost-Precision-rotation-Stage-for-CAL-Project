@@ -168,7 +168,7 @@ The GUI will open. Use the interface to connect, home, rotate, and configure the
 - **Problem:** Cannot connect to CAN bus
   - **Solution:** Ensure correct wiring, termination, and that `can0` is up. Use `candump can0` for debugging.
 - **Problem:** Motor doesn’t move
-  - **Solution:** Check if E-STOP is active, verify speed/acceleration, confirm the motor is powered.
+  - **Solution:** Confirm the motor is powered. Refer to the Motors Datasheet and the MKS SERVO42D User Manual to verify the wiring is correct.
 - **Problem:** Inaccurate Angle Display
   - **Solution:** The most common cause is an incorrect or missing calibration value in `CALIBRATION_FEEDBACK_MAP`. Re-run the calibration process for the current subdivision. Ensure `GEAR_RATIO` is set correctly.
 - **Problem:** Library errors
