@@ -3,21 +3,6 @@
 This repository contains the hardware, firmware, and software for a low-cost, high-precision rotation stage designed for Computed Axial Lithography (CAL). The system uses an MKS SERVO42D smart stepper motor and is controlled via a Python-based GUI over a CAN bus interface.
 
 ---
-
-## Repository Structure
-
-```
-Low-cost-Precision-rotation-Stage-for-CAL-Project/
-├── CAD/                    # Fusion 360 and STL files for 3D printing
-├── Firmware/               # Python GUI + Klipper firmware and macros
-├── Wiring Diagrams/        # Electrical connection diagrams
-├── Images/                 # Visuals and renders
-├── BOM.xlsx                # Bill of Materials
-└── README.md               # This file
-```
-
----
-
 ## Features
 
 - Precision rotation stage using a geared stepper motor (MKS SERVO42D)
