@@ -36,8 +36,8 @@ The primary motivation for this project is the high cost of commercial rotation 
 
 - **MKS SERVO42D** stepper motor with CAN bus interface.
 - **A host computer with a CAN interface.** Common options include:
-  - A Raspberry Pi with a CAN bus HAT (e.g., from Waveshare, Seeed Studio).
-  - A PC/laptop with a USB-to-CAN adapter (e.g., CANable, USBtin).
+  - A CAN-to-USB adapter (e.g., CANable, USBtin, PCAN-USB).
+  - A Raspberry Pi with a CAN bus HAT.
 - **A stable Power Supply** for the servo (typically 12V to 24V DC).
 - **CAN Bus Wiring:**
   - A twisted pair of wires for `CAN_H` and `CAN_L`.
@@ -61,26 +61,27 @@ The primary motivation for this project is the high cost of commercial rotation 
 2. **Power the Servo:** Connect the servo's power input (`V+`, `GND`) to your power supply. **Do not** power the servo from your host computer's logic pins.
 3. **Terminate the Bus:** Place a 120 Ohm resistor across the `CAN_H` and `CAN_L` terminals. This is typically only needed at the two physical ends of the CAN bus.
 
-#### Step 2: System CAN Configuration (for Raspberry Pi)
+#### Step 2: System CAN Configuration
 
-1. **Enable the CAN overlay.** Edit the `/boot/config.txt` file:
+For Linux systems using `socketcan` (which is the most common way to use CAN-to-USB adapters):
+
+1. **Connect the Adapter:** Plug your CAN-to-USB adapter into your computer.
+
+2. **Identify the Adapter's Device Name:** The system should automatically recognize the adapter. You can find its name by listing serial devices. It will often appear as `ttyACM0` or `ttyUSB0`.
    ```bash
-   sudo nano /boot/config.txt
+   ls /dev/ | grep -E 'ttyACM|ttyUSB'
    ```
-   Add the following lines, adjusting `oscillator` based on your CAN hat's documentation (8000000 is common for an 8MHz crystal):
-   ```
-   # For a standard MCP2515 based CAN HAT
-   dtparam=spi=on
-   dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25
-   dtoverlay=spi-bcm2835
-   ```
-   Reboot your Raspberry Pi after saving the file.
 
-2. **Bring up the CAN interface.** Once rebooted, run the following command in your terminal. This sets the bus speed to 500 kbit/s.
+3. **Bring up the CAN interface.** Use the `slcand` utility to attach a network interface to your serial device. Replace `ttyACM0` with your device name and `can0` with your desired interface name.
+   ```bash
+   sudo slcand -o -c -s8 /dev/ttyACM0 can0
+   ```
+   Then, set the bitrate (bus speed) for the new interface. The script is configured for 500000.
    ```bash
    sudo ip link set can0 up type can bitrate 500000
    ```
-3. **Verify the interface.** You can check if the interface is up by running `ifconfig can0` or `ip -details link show can0`.
+
+4. **Verify the interface.** You can check if the interface is up by running `ifconfig can0` or `ip -details link show can0`.
 
 #### Step 3: Python Environment & Libraries
 
@@ -89,10 +90,12 @@ The primary motivation for this project is the high cost of commercial rotation 
    python3 -m venv servo_env
    source servo_env/bin/activate
    ```
+
 2. Install `python-can`:
    ```bash
    pip install python-can
    ```
+
 3. Clone and install the required `mks-servo-can` library from your repository:
    ```bash
    git clone [https://github.com/Gacp45/mks-servo-can.git](https://github.com/Gacp45/mks-servo-can.git)
@@ -105,8 +108,8 @@ The primary motivation for this project is the high cost of commercial rotation 
 
 Before running the control software, open the Python script (e.g., `servo_control_panel.py`) and review the **Configuration Constants** section at the top.
 
-- `CAN_INTERFACE`: Should be `"socketcan"` for most Raspberry Pi setups.
-- `CAN_CHANNEL`: Should be `"can0"` to match the system setup.
+- `CAN_INTERFACE`: Should be `"socketcan"` for most Linux setups.
+- `CAN_CHANNEL`: Should be `"can0"` (or whatever name you assigned in Step 2.3).
 - `SERVO_CAN_ID`: **Crucial.** This must match the ID configured on your servo. The default is `1`.
 - `GEAR_RATIO`: **Crucial.** Set this to the exact ratio of your gearbox (e.g., `17.0` for a 17:1 ratio).
 - `CALIBRATION_FEEDBACK_MAP`: This is the most important part of the configuration for accurate angle feedback. **You must calibrate this for your setup.**
@@ -165,7 +168,7 @@ The GUI will open. Use the interface to connect, home, rotate, and configure the
 - **Problem:** Cannot connect to CAN bus
   - **Solution:** Ensure correct wiring, termination, and that `can0` is up. Use `candump can0` for debugging.
 - **Problem:** Motor doesn’t move
-  - **Solution:** Check stepper motor wiring. 
+  - **Solution:** Check if E-STOP is active, verify speed/acceleration, confirm the motor is powered.
 - **Problem:** Inaccurate Angle Display
   - **Solution:** The most common cause is an incorrect or missing calibration value in `CALIBRATION_FEEDBACK_MAP`. Re-run the calibration process for the current subdivision. Ensure `GEAR_RATIO` is set correctly.
 - **Problem:** Library errors
