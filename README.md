@@ -1,8 +1,25 @@
 # Low-Cost Precision Rotation Stage for Computed Axial Lithography (CAL)
 
-This repository contains the hardware, firmware, and software for a low-cost, high-precision rotation stage designed for Computed Axial Lithography (CAL). The system uses an MKS SERVO42D smart stepper motor and is controlled via a Python-based GUI over a CAN bus interface.
+This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
+
+The primary motivation for this project is the high cost of commercial rotation stages, which presents a significant barrier to entry for researchers, educators, and enthusiasts in fields like optical automation and volumetric additive manufacturing (VAM), such as Computed Axial Lithography (CAL). This open-source design aims to provide a viable alternative that replicates the core functionality of commercial systems for a fraction of the price.
+
+## Table of Contents
+
+- [Features](#features)
+- [Hardware Requirements](#1-hardware-requirements)
+- [Software Requirements](#2-software-requirements)
+- [Installation and Setup](#3-installation-and-setup)
+- [Script Configuration](#4-script-configuration)
+- [Calibration Guide](#5-calibration-guide)
+- [Running the Application](#6-running-the-application)
+- [Troubleshooting](#7-troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ---
+
 ## Features
 
 - Precision rotation stage using a geared stepper motor (MKS SERVO42D)
@@ -15,95 +32,144 @@ This repository contains the hardware, firmware, and software for a low-cost, hi
 
 ---
 
-## Hardware Requirements
+### 1. Hardware Requirements
 
-- MKS SERVO42D stepper motor with CAN bus interface
-- CAN-to-USB adapter (e.g., MCP2515, CANable, USBtin)
-- Raspberry Pi or Linux PC with SocketCAN support
-- Properly terminated CAN bus wiring
-- Power supply (12–24V depending on motor specs)
-- 3D-printed mechanical components from `CAD/`
+- **MKS SERVO42D** stepper motor with CAN bus interface.
+- **A host computer with a CAN interface.** Common options include:
+  - A Raspberry Pi with a CAN bus HAT (e.g., from Waveshare, Seeed Studio).
+  - A PC/laptop with a USB-to-CAN adapter (e.g., CANable, USBtin).
+- **A stable Power Supply** for the servo (typically 12V to 24V DC).
+- **CAN Bus Wiring:**
+  - A twisted pair of wires for `CAN_H` and `CAN_L`.
+  - A **120 Ohm termination resistor** at the end of the bus. This is crucial for bus stability.
+- **3D-printed mechanical components** from the `/CAD` directory in this repository.
 
----
+### 2. Software Requirements
 
-## Software Requirements
+- **Operating System:** A Linux-based OS is required for `socketcan` support (e.g., Raspberry Pi OS, Ubuntu, Debian).
+- **Python:** Python 3.7 or newer.
+- **Python Libraries:**
+  - `python-can`
+  - `mks-servo-can` (via custom repository)
+  - `tkinter` (usually included with Python standard installations).
 
-- Linux-based OS with CAN bus support
-- Python 3.7 or later
-- Python packages:
-  ```bash
-  pip install python-can
-  ```
+### 3. Installation and Setup
 
-- Clone and install the `mks_servo_can` library:
-  ```bash
-  git clone https://github.com/Gacp45/mks-servo-can.git
-  cd mks-servo-can
-  pip install .
-  ```
+#### Step 1: Hardware Connection
 
----
+1. **Connect the Servo:** Wire the `CAN_H` and `CAN_L` pins from your servo to the corresponding pins on your CAN interface.
+2. **Power the Servo:** Connect the servo's power input (`V+`, `GND`) to your power supply. **Do not** power the servo from your host computer's logic pins.
+3. **Terminate the Bus:** Place a 120 Ohm resistor across the `CAN_H` and `CAN_L` terminals. This is typically only needed at the two physical ends of the CAN bus.
 
-## CAN Bus Setup
+#### Step 2: System CAN Configuration (for Raspberry Pi)
 
-To enable the CAN interface on a Linux device:
-
-```bash
-sudo ip link set can0 up type can bitrate 500000
-sudo ifconfig can0 up
-```
-
-Verify with:
-
-```bash
-ifconfig can0
-```
-
-To monitor CAN messages (optional):
-
-```bash
-candump can0
-```
-
----
-
-## Running the GUI
-
-1. Clone this repository:
+1. **Enable the CAN overlay.** Edit the `/boot/config.txt` file:
    ```bash
-   git clone https://github.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project.git
+   sudo nano /boot/config.txt
+   ```
+   Add the following lines, adjusting `oscillator` based on your CAN hat's documentation (8000000 is common for an 8MHz crystal):
+   ```
+   # For a standard MCP2515 based CAN HAT
+   dtparam=spi=on
+   dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25
+   dtoverlay=spi-bcm2835
+   ```
+   Reboot your Raspberry Pi after saving the file.
+
+2. **Bring up the CAN interface.** Once rebooted, run the following command in your terminal. This sets the bus speed to 500 kbit/s.
+   ```bash
+   sudo ip link set can0 up type can bitrate 500000
+   ```
+3. **Verify the interface.** You can check if the interface is up by running `ifconfig can0` or `ip -details link show can0`.
+
+#### Step 3: Python Environment & Libraries
+
+1. It is highly recommended to use a Python virtual environment.
+   ```bash
+   python3 -m venv servo_env
+   source servo_env/bin/activate
+   ```
+2. Install `python-can`:
+   ```bash
+   pip install python-can
+   ```
+3. Clone and install the required `mks-servo-can` library from your repository:
+   ```bash
+   git clone [https://github.com/Gacp45/mks-servo-can.git](https://github.com/Gacp45/mks-servo-can.git)
+   cd mks-servo-can
+   pip install .
+   cd ..
    ```
 
-2. Navigate to the firmware directory:
+### 4. Script Configuration
+
+Before running the control software, open the Python script (e.g., `servo_control_panel.py`) and review the **Configuration Constants** section at the top.
+
+- `CAN_INTERFACE`: Should be `"socketcan"` for most Raspberry Pi setups.
+- `CAN_CHANNEL`: Should be `"can0"` to match the system setup.
+- `SERVO_CAN_ID`: **Crucial.** This must match the ID configured on your servo. The default is `1`.
+- `GEAR_RATIO`: **Crucial.** Set this to the exact ratio of your gearbox (e.g., `17.0` for a 17:1 ratio).
+- `CALIBRATION_FEEDBACK_MAP`: This is the most important part of the configuration for accurate angle feedback. **You must calibrate this for your setup.**
+
+### 5. Calibration Guide
+
+The servo's encoder reports its position in raw units, and the scaling of these units changes with the subdivision (microstepping) setting. To get an accurate angle display, you must calibrate the conversion factor for each subdivision you intend to use.
+
+**How to Calibrate:**
+
+1. **Run the script:** `python3 servo_control_panel.py`.
+2. **Connect** to the servo using the GUI.
+3. **Select a Subdivision Code** from the dropdown menu that you want to calibrate (e.g., `16`).
+4. **Press "Set Zero (Logical)".** This resets the script's internal position reference.
+5. **Command a large, precise move.** Enter a large angle in the "Output Angle (°)" box. Using a multiple of 360 is best. For example, enter `3600` (which is 10 full output shaft rotations). Press **"Set Angle"**. Wait for the motor to stop moving.
+6. **Check the Console Output.** The script will be printing status lines to the terminal. Find the last `AngleCalc` line. It will look something like this:
+   ```
+   AngleCalc (L...): RawLibVal=..., LibOffset=..., ..., Output=RawRel: 621560
+   ```
+   When the script is uncalibrated for the current subdivision, the output is shown as `RawRel`. This is the number you need. In this example, the value is `621560`.
+7. **Calculate the Factor.** The formula is:
+   `factor = total_raw_units / (total_output_degrees * GEAR_RATIO)`
+   Using our example:
+   `factor = 621560 / (3600 * 17.0) = 621560 / 61200 = 10.1562...`
+   This factor is the `feedback_units_per_motor_degree`.
+8. **Update the Script.** Open `servo_control_panel.py` and update the `CALIBRATION_FEEDBACK_MAP` with your new value.
+   ```python
+   CALIBRATION_FEEDBACK_MAP = {
+       1:   15941.0 / 360.0,
+       # ... other values
+       16:  10.1562, # Your newly calculated value
+       # ...
+   }
+   ```
+   *Note: For higher accuracy, you can leave it as a fraction: `621560 / 61200.0`.*
+9. **Repeat** for every subdivision code you plan to use.
+
+### 6. Running the Application
+
+1. Clone this repository (if you haven't already):
+   ```bash
+   git clone [https://github.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project.git](https://github.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project.git)
+   ```
+2. Navigate to the directory containing the control script:
    ```bash
    cd Low-cost-Precision-rotation-Stage-for-CAL-Project/Firmware
    ```
-
 3. Run the control interface:
    ```bash
    python3 "Rotation Stage control V1.py"
    ```
-
 The GUI will open. Use the interface to connect, home, rotate, and configure the motor.
 
----
+### 7. Troubleshooting
 
-## Calibration
-
-The script includes a predefined `CALIBRATION_FEEDBACK_MAP` used to convert raw encoder data into meaningful angle values. If using different subdivision settings or hardware, run a manual calibration routine and update the dictionary accordingly.
-
----
-
-## Troubleshooting
-
-**Problem:** Cannot connect to CAN bus  
-**Solution:** Ensure correct wiring, termination, and that `can0` is up. Use `candump can0` for debugging.
-
-**Problem:** Motor doesn’t move  
-**Solution:** Check if E-STOP is active, verify speed/acceleration, confirm the motor is powered.
-
-**Problem:** Library errors  
-**Solution:** Make sure `mks_servo_can` is installed correctly and matches the expected API version.
+- **Problem:** Cannot connect to CAN bus
+  - **Solution:** Ensure correct wiring, termination, and that `can0` is up. Use `candump can0` for debugging.
+- **Problem:** Motor doesn’t move
+  - **Solution:** Check stepper motor wiring. 
+- **Problem:** Inaccurate Angle Display
+  - **Solution:** The most common cause is an incorrect or missing calibration value in `CALIBRATION_FEEDBACK_MAP`. Re-run the calibration process for the current subdivision. Ensure `GEAR_RATIO` is set correctly.
+- **Problem:** Library errors
+  - **Solution:** Make sure `mks-servo-can` is installed correctly from the specified repository.
 
 ---
 
