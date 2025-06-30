@@ -48,7 +48,7 @@
 ---
 
 ## About The Project
-![RS_git](https://github.com/user-attachments/assets/c6ee2daf-ec76-4aa8-bec9-38ba06f72c93)
+![RS_git](https://github.com/user-attachments/assets/37a91460-57cd-44dc-8042-2cac9fef4ff6)
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
 
@@ -100,7 +100,22 @@ All parts can be printed in PETG. The estimated print times and material usage a
 
 ### Off-the-Shelf Parts
 
-**(This section is ready for you to add your list of non-printed components, such as screws, bearings, the motor, and the CAN adapter.)**
+| Item Description | Quantity | Est. Unit Cost |
+|---|:---:|:---:|
+| [687-2RS Deep Groove Ball Bearings (20pcs)](https://amzn.eu/d/1d06OMJ) | 1 | £11.49 |
+| [MR74ZZ Bearing (50pcs)](https://amzn.eu/d/hQmF0Yy) | 1 | £32.83|
+| [Raspberry Pi 4](https://kitronik.co.uk/products/5027-raspberry-pi-4-model-b-2gb) | 1 | £36.00 |
+| [CAN Controller/Adapter](https://amzn.eu/d/fUJr2lt) | 1 | £26.99 |
+| [M3x4x5 Threaded Inserts (120pcs)](https://amzn.eu/d/4GGxn9i) | 1 | £6.99 |
+| [4mm Steel Ball Bearings (500pcs)](https://amzn.eu/d/f4SoZRg) | 1 | £9.49 |
+| [M3 Nuts and Bolts Set](https://amzn.eu/d/8jJFN0Y) | 1 | £7.88 |
+| [Nema17 Closed Loop Servo Controller (MKS SERVO42D)](https://amzn.eu/d/25QNwbP) | 1 | £22.88 |
+| [Elegoo Rapid PETG 1KG](https://amzn.eu/d/iP1IFZC) | 1 | £15.19 |
+| [Micro SD Card 32GB](https://amzn.eu/d/6P7VjgX) | 1 | £9.99 |
+| [Nema 17 Stepper Motor 42-40](https://amzn.eu/d/j4Zlj3i) | 1 | £11.99 |
+| [12V/24V PSU](https://amzn.eu/d/ben9mLR) | 1 | £15.99 |
+| [USB-C to USB-A Cable](https://amzn.eu/d/eBi2Wx1) | 1 | £5.49 |
+| **Total** | | **~£213.18** |
 
 ---
 
