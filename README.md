@@ -68,6 +68,13 @@ This project provides a complete, end-to-end solution, from the 3D-printable mec
 
 ---
 
+## Guides and Code
+
+To find the assembly guide, wiring guide, and slicing guide, go to the `Guides` directory. For the control software, go to the `Code` directory.
+
+---
+
+
 ## Bill of Materials
 
 ### 3D-Printed Parts
