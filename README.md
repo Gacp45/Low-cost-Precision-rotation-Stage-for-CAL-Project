@@ -86,7 +86,7 @@ All parts can be printed in PETG. The estimated print times and material usage a
 | A | Outer Housing | 1 | 6 | 100 |
 | B | Bottom Output Flange | 1 | 1.5 | 20 |
 | C | Input Shaft | 1 | 0.5 | 5 |
-| D | Eccentric Shaft | 2 | 0.25 (Each) | 4.30 (Each) |
+| D | Eccentric Shaft | 2 | 0.25  | 4.30 |
 | D-Spacer | Eccentric Shaft Spacer | 1 | 0.1 | 1.11 |
 | E | Motor Shaft Coupler | 1 | 0.5 | 4.27 |
 | F | Top Output Flange | 1 | 2.2 | 26 |
