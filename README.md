@@ -72,7 +72,7 @@ This project provides a complete, end-to-end solution, from the 3D-printable mec
 
 ### 3D-Printed Parts
 
-All parts can be printed in PETG. The estimated print times and material usage are based on standard print settings. All `.stl` files can be found in the `/CAD` directory.
+All parts can be printed in PETG. The estimated print times and material usage are based on standard print settings. All `.stl` files can be found in Releases.
 
 | Part ID | Part Name | Quantity | Est. Print Time (hrs) | Est. Material (g) |
 |---|---|:---:|:---:|:---:|
@@ -99,7 +99,7 @@ All parts can be printed in PETG. The estimated print times and material usage a
 | **Total** | | | **~30.85** | **~336.81** |
 
 ### Off-the-Shelf Parts
-
+This section lists all the non-printed hardware required for assembly. Prices are estimates in GBP (£) and may vary based on supplier and location.
 | Item Description | Quantity | Est. Unit Cost |
 |---|:---:|:---:|
 | [687-2RS Deep Groove Ball Bearings (20pcs)](https://amzn.eu/d/1d06OMJ) | 1 | £11.49 |
