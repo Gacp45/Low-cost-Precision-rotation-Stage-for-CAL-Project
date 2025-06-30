@@ -23,12 +23,8 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#why-this-project">Why This Project?</a></li>
-        <li><a href="#key-features">Key Features</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#bill-of-materials">Bill of Materials</a></li>
     <li><a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -53,8 +49,7 @@
 
 ## About The Project
 
-![IMG_3397](https://github.com/user-attachments/assets/6f82c3db-b893-4982-9177-6fe2b2445166)
-
+![Project Screenshot](https://raw.githubusercontent.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project/main/Images/render.png)
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
 
@@ -65,13 +60,48 @@ The primary motivation for this project is the high cost of commercial rotation 
 This project provides a complete, end-to-end solution, from the 3D-printable mechanical parts to the control software, enabling users to build and operate their own precision rotation stage.
 
 ### Key Features:
-
 * **Precision Rotation Stage:** Uses a geared stepper motor (MKS SERVO42D) for high-precision control.
 * **GUI Control Panel:** An intuitive interface built with Tkinter for easy operation.
 * **Real-time Feedback:** Displays the current output angle in degrees, calculated from live encoder data.
 * **Dynamic Configuration:** Adjust speed, acceleration, and microstepping settings on the fly.
 * **Stall-Based Homing:** Initiate the servo's built-in sensorless homing sequence.
 * **Emergency Stop:** Immediately halt all motor activity for safety.
+
+---
+
+## Bill of Materials
+
+### 3D-Printed Parts
+
+All parts can be printed in PETG. The estimated print times and material usage are based on standard print settings. All `.stl` files can be found in the `/CAD` directory.
+
+| Part ID | Part Name | Quantity | Est. Print Time (hrs) | Est. Material (g) |
+|---|---|:---:|:---:|:---:|
+| A | Outer Housing | 1 | 6 | 100 |
+| B | Bottom Output Flange | 1 | 1.5 | 20 |
+| C | Input Shaft | 1 | 0.5 | 5 |
+| D | Eccentric Shaft | 2 | 0.25 (Each) | 4.30 (Each) |
+| D-Spacer | Eccentric Shaft Spacer | 1 | 0.1 | 1.11 |
+| E | Motor Shaft Coupler | 1 | 0.5 | 4.27 |
+| F | Top Output Flange | 1 | 2.2 | 26 |
+| G | Motor Mount | 1 | 3.1 | 38 |
+| H-1 | Output Bearing Shaft | 6 | 1.5 | 4.2 |
+| H-2 | Output Bearing Spacer | 12 | 0.6 | 1.68 |
+| I | Cycloidal Disk | 2 | 4.25 | 57.9 |
+| I-2 | Bearing Cage (Cycloidal) | 2 | 0.14 | 1.34 |
+| J-1 | Outer Housing (Top) | 1 | 5.5 | 66.44 |
+| J-2 | Bearing Cage (Top) | 1 | 0.06 | 0.64 |
+| Roller-A | Roller Shaft | 18 | 1.08 | 2.34 |
+| Roller-B | Roller Shaft Spacer S | 18 | 0.54 | 1.08 |
+| Roller-C | Roller Shaft Spacer M | 18 | 0.9 | 1.44 |
+| Roller-D | Roller Shaft Spacer B | 18 | 1.8 | 3.42 |
+| A-B Cage | Bearing Cage (A-B) | 1 | 0.15 | 0.95 |
+| B-C Cage | Bearing Cage (B-C) | 1 | 0.18 | 1 |
+| **Total** | | | **~30.85** | **~336.81** |
+
+### Off-the-Shelf Parts
+
+**(This section is ready for you to add your list of non-printed components, such as screws, bearings, the motor, and the CAN adapter.)**
 
 ---
 
