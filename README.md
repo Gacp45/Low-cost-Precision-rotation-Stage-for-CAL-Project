@@ -49,7 +49,7 @@
 
 ## About The Project
 
-![Project Screenshot](https://raw.githubusercontent.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project/main/Images/render.png)
+![RS_Git.JPG](https://raw.githubusercontent.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project/main/Images/render.png)
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
 
