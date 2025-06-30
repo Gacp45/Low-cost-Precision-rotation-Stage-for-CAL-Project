@@ -23,12 +23,8 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#why-this-project">Why This Project?</a></li>
-        <li><a href="#key-features">Key Features</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#bill-of-materials">Bill of Materials</a></li>
     <li><a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -52,8 +48,7 @@
 ---
 
 ## About The Project
-
-![Project Screenshot](https://raw.githubusercontent.com/Gacp45/Low-cost-Precision-rotation-Stage-for-CAL-Project/main/Images/render.png)
+![RS_git](https://github.com/user-attachments/assets/37a91460-57cd-44dc-8042-2cac9fef4ff6)
 
 This repository contains the complete design files, software, and documentation for a low-cost, 3D-printed, high-precision motorised rotation stage. The project was developed as part of a Master of Engineering Project at NMITE.
 
@@ -70,6 +65,64 @@ This project provides a complete, end-to-end solution, from the 3D-printable mec
 * **Dynamic Configuration:** Adjust speed, acceleration, and microstepping settings on the fly.
 * **Stall-Based Homing:** Initiate the servo's built-in sensorless homing sequence.
 * **Emergency Stop:** Immediately halt all motor activity for safety.
+
+---
+
+## Guides and Code
+
+To find the assembly guide, wiring guide, and slicing guide, go to the `/Guides` directory. For the control software, go to the `/Code` directory.
+
+---
+
+
+## Bill of Materials
+
+### 3D-Printed Parts
+
+All parts can be printed in PETG. The estimated print times and material usage are based on standard print settings. All `.stl` files can be found in Releases.
+
+| Part ID | Part Name | Quantity | Est. Print Time (hrs) | Est. Material (g) |
+|---|---|:---:|:---:|:---:|
+| A | Outer Housing | 1 | 6 | 100 |
+| B | Bottom Output Flange | 1 | 1.5 | 20 |
+| C | Input Shaft | 1 | 0.5 | 5 |
+| D | Eccentric Shaft | 2 | 0.25 (Each) | 4.30 (Each) |
+| D-Spacer | Eccentric Shaft Spacer | 1 | 0.1 | 1.11 |
+| E | Motor Shaft Coupler | 1 | 0.5 | 4.27 |
+| F | Top Output Flange | 1 | 2.2 | 26 |
+| G | Motor Mount | 1 | 3.1 | 38 |
+| H-1 | Output Bearing Shaft | 6 | 1.5 | 4.2 |
+| H-2 | Output Bearing Spacer | 12 | 0.6 | 1.68 |
+| I | Cycloidal Disk | 2 | 4.25 | 57.9 |
+| I-2 | Bearing Cage (Cycloidal) | 2 | 0.14 | 1.34 |
+| J-1 | Outer Housing (Top) | 1 | 5.5 | 66.44 |
+| J-2 | Bearing Cage (Top) | 1 | 0.06 | 0.64 |
+| Roller-A | Roller Shaft | 18 | 1.08 | 2.34 |
+| Roller-B | Roller Shaft Spacer S | 18 | 0.54 | 1.08 |
+| Roller-C | Roller Shaft Spacer M | 18 | 0.9 | 1.44 |
+| Roller-D | Roller Shaft Spacer B | 18 | 1.8 | 3.42 |
+| A-B Cage | Bearing Cage (A-B) | 1 | 0.15 | 0.95 |
+| B-C Cage | Bearing Cage (B-C) | 1 | 0.18 | 1 |
+| **Total** | | | **~30.85** | **~336.81** |
+
+### Off-the-Shelf Parts
+This section lists all the non-printed hardware required for assembly. Prices are estimates in GBP (£) and may vary based on supplier and location.
+| Item Description | Quantity | Est. Unit Cost |
+|---|:---:|:---:|
+| [687-2RS Deep Groove Ball Bearings (20pcs)](https://amzn.eu/d/1d06OMJ) | 1 | £11.49 |
+| [MR74ZZ Bearing (50pcs)](https://amzn.eu/d/hQmF0Yy) | 1 | £32.83|
+| [Raspberry Pi 4](https://kitronik.co.uk/products/5027-raspberry-pi-4-model-b-2gb) | 1 | £36.00 |
+| [CAN Controller/Adapter](https://amzn.eu/d/fUJr2lt) | 1 | £26.99 |
+| [M3x4x5 Threaded Inserts (120pcs)](https://amzn.eu/d/4GGxn9i) | 1 | £6.99 |
+| [4mm Steel Ball Bearings (500pcs)](https://amzn.eu/d/f4SoZRg) | 1 | £9.49 |
+| [M3 Nuts and Bolts Set](https://amzn.eu/d/8jJFN0Y) | 1 | £7.88 |
+| [Nema17 Closed Loop Servo Controller (MKS SERVO42D)](https://amzn.eu/d/25QNwbP) | 1 | £22.88 |
+| [Elegoo Rapid PETG 1KG](https://amzn.eu/d/iP1IFZC) | 1 | £15.19 |
+| [Micro SD Card 32GB](https://amzn.eu/d/6P7VjgX) | 1 | £9.99 |
+| [Nema 17 Stepper Motor 42-40](https://amzn.eu/d/j4Zlj3i) | 1 | £11.99 |
+| [12V/24V PSU](https://amzn.eu/d/ben9mLR) | 1 | £15.99 |
+| [USB-C to USB-A Cable](https://amzn.eu/d/eBi2Wx1) | 1 | £5.49 |
+| **Total** | | **~£213.18** |
 
 ---
 
@@ -90,7 +143,7 @@ Before you begin, ensure you have all the necessary hardware and software.
 * **CAN Bus Wiring:**
   * A twisted pair of wires for `CAN_H` and `CAN_L`.
   * A **120 Ohm termination resistor** at the end of the bus.
-* **3D-printed mechanical components** from the `/CAD` directory.
+* **3D-printed mechanical components** from Releases.
 
 #### Software & Library Requirements
 * **Operating System:** A Linux-based OS with `socketcan` support (e.g., Raspberry Pi OS, Ubuntu, Debian).
