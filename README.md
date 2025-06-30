@@ -70,7 +70,7 @@ This project provides a complete, end-to-end solution, from the 3D-printable mec
 
 ## Guides and Code
 
-To find the assembly guide, wiring guide, and slicing guide, go to the `Guides` directory. For the control software, go to the `Code` directory.
+To find the assembly guide, wiring guide, and slicing guide, go to the `/Guides` directory. For the control software, go to the `Code` directory.
 
 ---
 
@@ -143,7 +143,7 @@ Before you begin, ensure you have all the necessary hardware and software.
 * **CAN Bus Wiring:**
   * A twisted pair of wires for `CAN_H` and `CAN_L`.
   * A **120 Ohm termination resistor** at the end of the bus.
-* **3D-printed mechanical components** from the `/CAD` directory.
+* **3D-printed mechanical components** from Releases.
 
 #### Software & Library Requirements
 * **Operating System:** A Linux-based OS with `socketcan` support (e.g., Raspberry Pi OS, Ubuntu, Debian).
